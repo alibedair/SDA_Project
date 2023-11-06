@@ -1,4 +1,4 @@
 public interface Transference
 {
-    public void transfere();
+    public void transfere();//to transfere money
 }
