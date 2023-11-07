@@ -1,4 +1,5 @@
 import java.util.Scanner;
+
 public class Client {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -9,7 +10,7 @@ public class Client {
         System.out.println("3. Bank wallet");
         Transference transference;
         WalletProviders wp;
-        int amount;
+        int amount;// amount of money user transfer
         int choice=scanner.nextInt();
         if (choice == 1) {
             System.out.println("You have chosen to pay with  vodafone cash. Please provide amount of payment.");
