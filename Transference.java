@@ -1,4 +1,3 @@
-public interface Transference
-{
-    public void transfere(int amount);//to transfere money
+public interface Transference {
+    public void transfer(String Mobile_no,int amount);
 }
