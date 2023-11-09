@@ -32,7 +32,7 @@ public class AccountWithWallet extends InstapayAccount{
         for(int i =0;i<database.getSavedAccounts().size();i++){
             if(instapayAccount.getUserName().equals(database.getSavedAccounts().get(i).getUserName())&& instapayAccount.getPassword().equals(database.getSavedAccounts().get(i).getPassword())){
                 System.out.println("You have Signed in successfully");
-                instapayAccount.loadProfile();
+                database.getSavedAccounts().get(i).loadProfile();
                 return true;
             }
         }
