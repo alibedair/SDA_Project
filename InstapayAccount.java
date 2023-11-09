@@ -1,6 +1,4 @@
-import java.util.List;
 import java.util.Scanner;
-
 public abstract class InstapayAccount  {
     protected String userName;
     protected String password;
@@ -41,26 +39,10 @@ public abstract class InstapayAccount  {
     public void loadProfile(){
         System.out.println("Signed in with UserName :"+getUserName());
         System.out.println("Your balance : "+InquireBalance()+" "+getCurrency());
-
+        System.out.println("Your currency is "+currency);
     }
     abstract boolean signup(String mobile_no);
-      boolean signin(String userName,String password){
-          System.out.println("please enter your UserName :  ");
-          Scanner scanner = new Scanner(System.in);
-          String Uname = scanner.next();
-          System.out.println("please enter your Password :  ");
-          String pass = scanner.next();
-          Database database = Database.getDatabase();
-          for(int i =0;i<database.getSavedAccounts().size();i++){
-              if(this.equals(database.getSavedAccounts().get(i))){
-                  System.out.println("You have Signed in successfully");
-                  loadProfile();
-                  return true;
-              }
-          }
-          System.out.println("Invalid userName or password");
-          return false;
-      };
+      abstract boolean signin(String UserName,String Password);
     public void transfer(double amount) {
         if(amount>balance){
             System.out.println("You do not have enough funds");
@@ -69,7 +51,7 @@ public abstract class InstapayAccount  {
         System.out.println("please enter the userName that you want to transfer to :");
         Scanner scanner = new Scanner(System.in);
         String UN = scanner.next();
-        Database database = Database.getDatabase();;
+        Database database = Database.getDatabase();
         if(database.checkAccountExistence(UN)){
             int pointer = database.getAccountIndex(UN);
             double newBalance = database.getSavedAccounts().get(pointer).InquireBalance();

@@ -25,6 +25,21 @@ public class AccountWithWallet extends InstapayAccount{
         }
     }
 
+    @Override
+    boolean signin(String UserName, String Password) {
+        InstapayAccount instapayAccount = new AccountWithWallet(UserName,Password);
+        Database database = Database.getDatabase();
+        for(int i =0;i<database.getSavedAccounts().size();i++){
+            if(instapayAccount.getUserName().equals(database.getSavedAccounts().get(i).getUserName())&& instapayAccount.getPassword().equals(database.getSavedAccounts().get(i).getPassword())){
+                System.out.println("You have Signed in successfully");
+                instapayAccount.loadProfile();
+                return true;
+            }
+        }
+        System.out.println("Invalid userName or password");
+        return false;
+    }
+
     public AccountWithWallet() {
         balance =0;
     }

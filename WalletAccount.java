@@ -17,7 +17,7 @@ public class WalletAccount extends ExternalAccount{
         System.out.println("please enter the Mobile number of the Wallet account that you want to transfer to :");
         Scanner scanner = new Scanner(System.in);
         String MN = scanner.next();
-        Database database = Database.getDatabase();;
+        Database database = Database.getDatabase();
         if(database.checkExistenceinProviders(MN)){
             int pointer = database.getWalletAccountIndex(MN);
             double newBalance = database.getWalletAccounts().get(pointer).getBalanceof();
