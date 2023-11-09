@@ -124,6 +124,8 @@ public class Client {
                     System.out.println("please enter your Password :  ");
                     String pass = scanner.next();
                     if (instapayAccount.signin(Uname, pass)) {
+                        int temp = database.getAccountIndex(Uname);
+                        instapayAccount = database.getSavedAccounts().get(temp);
                         String choice1;
                         boolean flag1 = true;
                         while (flag1) {
@@ -176,6 +178,8 @@ public class Client {
                     String pass2 = scanner.next();
                     while (flagSU) {
                         if (instapayAccount.signin(Uname1, pass2)) {
+                            int tmp = database.getAccountIndex(Uname1);
+                            instapayAccount = database.getSavedAccounts().get(tmp);
                             System.out.println("press 1 if you want to transfer to another Instapay account");
                             System.out.println("press 2 if you want to transfer to a Wallet  account");
                             System.out.println("press 3 if you want to view your balance");
