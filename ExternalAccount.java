@@ -1,4 +1,3 @@
-import java.util.List;
 
 abstract public class ExternalAccount implements Transference{
     protected double balanceof;

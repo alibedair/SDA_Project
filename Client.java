@@ -12,88 +12,23 @@ public class Client {
         database.addAccount(test1);
         database.addAccount(test);
         System.out.println("Welcome to our APP ");
-        int choice;
-        System.out.print("please press 1 to SignUp or press 2 to Signin :  ");
-        Scanner scanner = new Scanner(System.in);
-        choice = scanner.nextInt();
-        if(choice==1) {
-            System.out.print("press 1 to Signup with bank account or 2 to Signup with Wallet account : ");
-            int button = scanner.nextInt();
-            InstapayAccount instapayAccount;
-            if (button == 1) {
-                instapayAccount = new AccountWithBank();
-                System.out.println("please enter your Mobile number associated with the Bank :");
-                String number = scanner.next();
-                if(instapayAccount.signup(number)){
-                    String choice1;
-                    boolean flag = true;
-                    while (flag) {
-                        System.out.println("press 1 if you want to transfer to another Instapay account");
-                        System.out.println("press 2 if you want to transfer to a Bank account");
-                        System.out.println("press 3 if you want to transfer to a Wallet  account");
-                        System.out.println("press 4 if you want to view your balance");
-                        System.out.println("press 5 if you want to increase your balance");
-                        System.out.println("press 0 if you want to Sign out");
-                        choice1 = scanner.next();
-                        if (choice1.equals("1")){
-                            System.out.println("please enter the amount of money that you want to transfer:");
-                            double amount = scanner.nextDouble();
-                            instapayAccount.transfer(amount);
-                        } else if (choice1.equals("2")) {
-                            BankAccount bankAccount1 = new BankAccount() ;
-                            Context context = new Context(bankAccount1);
-                            System.out.println("please enter the amount of money that you want to transfer:");
-                            double amount = scanner.nextDouble();
-                            context.ChooseTransference(amount,instapayAccount);
-
-                        } else if (choice1.equals("3")) {
-                            WalletAccount walletAccount1 = new WalletAccount();
-                            Context context = new Context(walletAccount1);
-                            System.out.println("please enter the amount of money that you want to transfer:");
-                            double amount = scanner.nextDouble();
-                            context.ChooseTransference(amount,instapayAccount);
-
-                        } else if (choice1.equals("4")) {
-                            System.out.println("your balance = "+instapayAccount.InquireBalance());
-
-                        }else if(choice1.equals("5")){
-                            System.out.println("please enter the amount of money that you want to add to your balance:");
-                            double amount = scanner.nextDouble();
-                            instapayAccount.addtoBalance(amount);
-                        }
-                        else if (choice1.equals("0")) {
-                            flag = false;
-                            System.out.println("You have signed out successfully");
-                            System.out.println("We will miss you");
-                        }
-                        else {
-                            System.out.println("You have entered invalid button");
-                        }
-                    }
-                }
-            } else if (button == 2) {
-                instapayAccount = new AccountWithWallet();
-                System.out.println("please enter your Mobile number associated with the Wallet :");
-                String number = scanner.next();
-                if(instapayAccount.signup(number)){
-
-                }
-            } else
-                System.out.println("You pressed invalid number");
-        }
-            else if(choice==2){
-                System.out.print("press 1 to Signin with bank account or 2 to Signin with Wallet account : ");
-                InstapayAccount instapayAccount;
+        boolean exit = true;
+        while (exit) {
+            int choice;
+            System.out.print("please press 1 to SignUp or press 2 to Signin :  ");
+            Scanner scanner = new Scanner(System.in);
+            choice = scanner.nextInt();
+            boolean flag = true;
+            if (choice == 1) {
+                System.out.print("press 1 to Signup with bank account or 2 to Signup with Wallet account : ");
                 int button = scanner.nextInt();
-                if(button==1){
+                InstapayAccount instapayAccount;
+                if (button == 1) {
                     instapayAccount = new AccountWithBank();
-                    System.out.println("please enter your user Name :");
-                    String un = scanner.next();
-                    System.out.println("please enter your password :");
-                    String pw = scanner.next();
-                    if(instapayAccount.signin(un,pw)){
+                    System.out.println("please enter your Mobile number associated with the Bank :");
+                    String number = scanner.next();
+                    if (instapayAccount.signup(number)) {
                         String choice1;
-                        boolean flag = true;
                         while (flag) {
                             System.out.println("press 1 if you want to transfer to another Instapay account");
                             System.out.println("press 2 if you want to transfer to a Bank account");
@@ -102,58 +37,193 @@ public class Client {
                             System.out.println("press 5 if you want to increase your balance");
                             System.out.println("press 0 if you want to Sign out");
                             choice1 = scanner.next();
-                            if (choice1.equals("1")){
+                            if (choice1.equals("1")) {
                                 System.out.println("please enter the amount of money that you want to transfer:");
                                 double amount = scanner.nextDouble();
                                 instapayAccount.transfer(amount);
                             } else if (choice1.equals("2")) {
-                                BankAccount bankAccount1 = new BankAccount() ;
+                                BankAccount bankAccount1 = new BankAccount();
                                 Context context = new Context(bankAccount1);
                                 System.out.println("please enter the amount of money that you want to transfer:");
                                 double amount = scanner.nextDouble();
-                                context.ChooseTransference(amount,instapayAccount);
+                                context.ChooseTransference(amount, instapayAccount);
+
                             } else if (choice1.equals("3")) {
                                 WalletAccount walletAccount1 = new WalletAccount();
                                 Context context = new Context(walletAccount1);
                                 System.out.println("please enter the amount of money that you want to transfer:");
                                 double amount = scanner.nextDouble();
-                                context.ChooseTransference(amount,instapayAccount);
+                                context.ChooseTransference(amount, instapayAccount);
 
                             } else if (choice1.equals("4")) {
-                                System.out.println("your balance = "+instapayAccount.InquireBalance());
+                                System.out.println("your balance = " + instapayAccount.InquireBalance());
 
-                            }else if(choice1.equals("5")){
+                            } else if (choice1.equals("5")) {
                                 System.out.println("please enter the amount of money that you want to add to your balance:");
                                 double amount = scanner.nextDouble();
                                 instapayAccount.addtoBalance(amount);
-                            }
-                            else if (choice1.equals("0")) {
+                            } else if (choice1.equals("0")) {
                                 flag = false;
                                 System.out.println("You have signed out successfully");
-                                System.out.println("We will miss you");
+                            } else {
+                                System.out.println("You have entered invalid button");
                             }
-                            else {
+                        }
+                    }
+                } else if (button == 2) {
+                    instapayAccount = new AccountWithWallet();
+                    System.out.println("please enter your Mobile number associated with the Wallet :");
+                    String number = scanner.next();
+                    while (flag) {
+                        if (instapayAccount.signup(number)) {
+                            System.out.println("press 1 if you want to transfer to another Instapay account");
+                            System.out.println("press 2 if you want to transfer to a Wallet  account");
+                            System.out.println("press 3 if you want to view your balance");
+                            System.out.println("press 4 if you want to increase your balance");
+                            System.out.println("press 0 if you want to Sign out");
+                            String choice2;
+                            choice2 = scanner.next();
+                            if (choice2.equals("1")) {
+                                System.out.println("please enter the amount of money that you want to transfer:");
+                                double amount = scanner.nextDouble();
+                                instapayAccount.transfer(amount);
+
+                            } else if (choice2.equals("2")) {
+                                WalletAccount walletAccount1 = new WalletAccount();
+                                Context context = new Context(walletAccount1);
+                                System.out.println("please enter the amount of money that you want to transfer:");
+                                double amount = scanner.nextDouble();
+                                context.ChooseTransference(amount, instapayAccount);
+
+                            } else if (choice2.equals("3")) {
+                                System.out.println("your balance = " + instapayAccount.InquireBalance());
+                            } else if (choice2.equals("4")) {
+                                System.out.println("please enter the amount of money that you want to add to your balance:");
+                                double amount = scanner.nextDouble();
+                                instapayAccount.addtoBalance(amount);
+                            } else if (choice2.equals("0")) {
+                                flag = false;
+                                System.out.println("You have signed out successfully");
+
+                            } else {
+                                System.out.println("You have entered invalid button");
+                            }
+                        }
+
+                    }
+                } else
+                    System.out.println("You pressed invalid number");
+            } else if (choice == 2) {
+                System.out.print("press 1 to Signin with bank account or 2 to Signin with Wallet account : ");
+                InstapayAccount instapayAccount;
+                int button = scanner.nextInt();
+                if (button == 1) {
+                    instapayAccount = new AccountWithBank();
+                    System.out.println("please enter your UserName :  ");
+                    String Uname = scanner.next();
+                    System.out.println("please enter your Password :  ");
+                    String pass = scanner.next();
+                    if (instapayAccount.signin(Uname, pass)) {
+                        String choice1;
+                        boolean flag1 = true;
+                        while (flag1) {
+                            System.out.println("press 1 if you want to transfer to another Instapay account");
+                            System.out.println("press 2 if you want to transfer to a Bank account");
+                            System.out.println("press 3 if you want to transfer to a Wallet  account");
+                            System.out.println("press 4 if you want to view your balance");
+                            System.out.println("press 5 if you want to increase your balance");
+                            System.out.println("press 0 if you want to Sign out");
+                            choice1 = scanner.next();
+                            if (choice1.equals("1")) {
+                                System.out.println("please enter the amount of money that you want to transfer:");
+                                double amount = scanner.nextDouble();
+                                instapayAccount.transfer(amount);
+                            } else if (choice1.equals("2")) {
+                                BankAccount bankAccount1 = new BankAccount();
+                                Context context = new Context(bankAccount1);
+                                System.out.println("please enter the amount of money that you want to transfer:");
+                                double amount = scanner.nextDouble();
+                                context.ChooseTransference(amount, instapayAccount);
+                            } else if (choice1.equals("3")) {
+                                WalletAccount walletAccount1 = new WalletAccount();
+                                Context context = new Context(walletAccount1);
+                                System.out.println("please enter the amount of money that you want to transfer:");
+                                double amount = scanner.nextDouble();
+                                context.ChooseTransference(amount, instapayAccount);
+
+                            } else if (choice1.equals("4")) {
+                                System.out.println("your balance = " + instapayAccount.InquireBalance());
+
+                            } else if (choice1.equals("5")) {
+                                System.out.println("please enter the amount of money that you want to add to your balance:");
+                                double amount = scanner.nextDouble();
+                                instapayAccount.addtoBalance(amount);
+                            } else if (choice1.equals("0")) {
+                                flag1 = false;
+                                System.out.println("You have signed out successfully");
+                            } else {
                                 System.out.println("You have entered invalid button");
                             }
                         }
                     }
                 }
-                if(button==2){
+                if (button == 2) {
                     instapayAccount = new AccountWithWallet();
-                    System.out.println("please enter your user Name :");
-                    String un = scanner.next();
-                    System.out.println("please enter your password :");
-                    String pw = scanner.next();
-                    if(instapayAccount.signin(un,pw)){
+                    boolean flagSU = true;
+                    System.out.println("please enter your UserName :  ");
+                    String Uname1 = scanner.next();
+                    System.out.println("please enter your Password :  ");
+                    String pass2 = scanner.next();
+                    while (flagSU) {
+                        if (instapayAccount.signin(Uname1, pass2)) {
+                            System.out.println("press 1 if you want to transfer to another Instapay account");
+                            System.out.println("press 2 if you want to transfer to a Wallet  account");
+                            System.out.println("press 3 if you want to view your balance");
+                            System.out.println("press 4 if you want to increase your balance");
+                            System.out.println("press 0 if you want to Sign out");
+                            String choice3;
+                            choice3 = scanner.next();
+                            if (choice3.equals("1")) {
+                                System.out.println("please enter the amount of money that you want to transfer:");
+                                double amount = scanner.nextDouble();
+                                instapayAccount.transfer(amount);
 
+                            } else if (choice3.equals("2")) {
+                                WalletAccount walletAccount1 = new WalletAccount();
+                                Context context = new Context(walletAccount1);
+                                System.out.println("please enter the amount of money that you want to transfer:");
+                                double amount = scanner.nextDouble();
+                                context.ChooseTransference(amount, instapayAccount);
+
+                            } else if (choice3.equals("3")) {
+                                System.out.println("your balance = " + instapayAccount.InquireBalance());
+                            } else if (choice3.equals("4")) {
+                                System.out.println("please enter the amount of money that you want to add to your balance:");
+                                double amount = scanner.nextDouble();
+                                instapayAccount.addtoBalance(amount);
+                            } else if (choice3.equals("0")) {
+                                flagSU = false;
+                                System.out.println("You have signed out successfully");
+
+                            } else {
+                                System.out.println("You have entered invalid button");
+                            }
+                        }
                     }
                 }
+            }
+            System.out.print("Do you want to exit the program y/n:");
+            String power = scanner.next();
+            if(power.equals("y")){
+                exit = false;
+            }
         }
+            System.out.println("We will miss you");
             System.out.println("Accounts of Banks:");
             database.printBankAccounts();
-        System.out.println("Accounts of instapay:");
+            System.out.println("Accounts of instapay:");
             database.printSavedAccounts();
-        System.out.println("Accounts of Wallet providers:");
+            System.out.println("Accounts of Wallet providers:");
             database.printWalletAccounts();
     }
 }

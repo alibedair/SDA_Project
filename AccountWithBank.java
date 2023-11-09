@@ -4,6 +4,7 @@ public class AccountWithBank extends InstapayAccount{
     public AccountWithBank(String userName,String password) {
         this.userName = userName;
         this.password = password;
+        currency = "Dollars";
         balance =0;
     }
     @Override
@@ -24,8 +25,24 @@ public class AccountWithBank extends InstapayAccount{
         }
     }
 
+    @Override
+    boolean signin(String UserName, String Password) {
+        InstapayAccount instapayAccount = new AccountWithBank(UserName,Password);
+        Database database = Database.getDatabase();
+        for(int i =0;i<database.getSavedAccounts().size();i++){
+            if(instapayAccount.getUserName().equals(database.getSavedAccounts().get(i).getUserName())&& instapayAccount.getPassword().equals(database.getSavedAccounts().get(i).getPassword())){
+                System.out.println("You have Signed in successfully");
+                instapayAccount.loadProfile();
+                return true;
+            }
+        }
+        System.out.println("Invalid userName or password");
+        return false;
+    }
+
     public AccountWithBank() {
         balance =0;
+        currency = "Dollars";
     }
 
 

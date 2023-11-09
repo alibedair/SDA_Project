@@ -3,13 +3,13 @@ import java.util.List;
 
 public class Database {
     private static  Database database ;
-    private List<InstapayAccount> SavedAccounts = null;
+    private List<InstapayAccount> SavedAccounts;
 
     public List<InstapayAccount> getSavedAccounts() {
         return SavedAccounts;
     }
-    private List<WalletAccount> WalletAccounts = null;
-    private List<BankAccount> BankAccounts = null;
+    private List<WalletAccount> WalletAccounts;
+    private List<BankAccount> BankAccounts;
 
     public List<BankAccount> getBankAccounts() {
         return BankAccounts;
@@ -33,6 +33,7 @@ public class Database {
     public List<WalletAccount> getOtherAccounts() {
         return WalletAccounts;
     }
+    //to check the account in Inatpayaccounts
     public boolean checkAccountExistence(String UN){
         if(SavedAccounts.isEmpty()){
             return false;
@@ -54,6 +55,7 @@ public class Database {
         }
         return index;
     }
+    //Wallet account list getter
     public int getWalletAccountIndex(String MN){
         int index = -1;
         for (int i =0;i<getWalletAccounts().size();i++){
@@ -62,6 +64,7 @@ public class Database {
         }
         return index;
     }
+    //Bank account list getter
     public int getBankAccountIndex(String MN){
         int index = -1;
         for (int i =0;i<BankAccounts.size();i++){
@@ -70,6 +73,7 @@ public class Database {
         }
         return index;
     }
+    //to check if the account is exist or not in wallet providers accounts
     public boolean checkExistenceinProviders(String number){
         if (WalletAccounts.isEmpty()){
             return false;
@@ -82,6 +86,7 @@ public class Database {
         }
         return false;
     }
+    //to check if the account is exist or not in Bank accounts
     public boolean checkExistenceinBanks(String number){
         if ( BankAccounts.isEmpty()){
             return false;
