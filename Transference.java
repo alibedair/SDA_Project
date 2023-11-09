@@ -1,3 +1,3 @@
 public interface Transference {
-    public void transfer(String Mobile_no,int amount);
+    public void transfer(double amount,InstapayAccount instapayAccount);
 }

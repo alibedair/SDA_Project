@@ -4,8 +4,7 @@ public class Context {
     public Context(Transference transference) {
         this.transference = transference;
     }
-    public void doOperation(String Mobile_no,int amount){
-        transference.transfer(Mobile_no,amount);
-    };
-
+    public void ChooseTransference(double amount,InstapayAccount instapayAccount){
+        transference.transfer(amount,instapayAccount);
+    }
 }
