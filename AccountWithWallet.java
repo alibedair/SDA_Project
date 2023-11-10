@@ -9,9 +9,10 @@ public class AccountWithWallet extends InstapayAccount{
 
     @Override
     boolean signup(String mobile_no) {
-        Database database = Database.getDatabase();
         Scanner scanner = new Scanner(System.in);
-        if(database.checkExistenceinProviders(mobile_no)){
+        Database database = Database.getDatabase();
+        AppController appController = new AppController();
+        if(appController.checkExistenceinProviders(mobile_no)){
            System.out.println("please set your Username :");
            setUserName(scanner.next());
            System.out.println("please set your password :");
@@ -26,11 +27,24 @@ public class AccountWithWallet extends InstapayAccount{
     }
 
     @Override
-    boolean signin(String UserName, String Password) {
+    boolean signin(String UserName, String Password, String mobile_no) {
+        Scanner scanner = new Scanner(System.in);
         InstapayAccount instapayAccount = new AccountWithWallet(UserName,Password);
         Database database = Database.getDatabase();
+        AppController appController=new AppController();
+        String otp = appController.sendingOTP(mobile_no);
+        String enteredOTP = scanner.next();
+
+        if (appController.isVerified(enteredOTP, otp)) {
+            System.out.println("You're verified!");
+        } else {
+            System.out.println("The entered otp is wrong!");
+            return false;
+        }
+        
         for(int i =0;i<database.getSavedAccounts().size();i++){
-            if(instapayAccount.getUserName().equals(database.getSavedAccounts().get(i).getUserName())&& instapayAccount.getPassword().equals(database.getSavedAccounts().get(i).getPassword())){
+            if(instapayAccount.getUserName().equals(database.getSavedAccounts().get(i).getUserName())&& instapayAccount.getPassword().equals(database.getSavedAccounts().get(i).getPassword())){ 
+                
                 System.out.println("You have Signed in successfully");
                 database.getSavedAccounts().get(i).loadProfile();
                 return true;
