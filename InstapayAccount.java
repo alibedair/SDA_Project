@@ -42,7 +42,7 @@ public abstract class InstapayAccount  {
         System.out.println("Your currency is "+currency);
     }
     abstract boolean signup(String mobile_no);
-       boolean signin(String UserName,String Password){
+       boolean signin(String UserName,String Password, String mobile_no){
            Database database = Database.getDatabase();
            for(int i =0;i<database.getSavedAccounts().size();i++){
                if(UserName.equals(database.getSavedAccounts().get(i).getUserName())&& password.equals(database.getSavedAccounts().get(i).getPassword())){
@@ -63,7 +63,8 @@ public abstract class InstapayAccount  {
         Scanner scanner = new Scanner(System.in);
         String UN = scanner.next();
         Database database = Database.getDatabase();
-        if(database.checkAccountExistence(UN)){
+        AppController appController=new AppController();
+        if(appController.checkAccountExistence(UN)){
             int pointer = database.getAccountIndex(UN);
             double newBalance = database.getSavedAccounts().get(pointer).InquireBalance();
             newBalance += amount;
