@@ -18,7 +18,8 @@ public class BankAccount extends ExternalAccount{
         Scanner scanner = new Scanner(System.in);
         String MN = scanner.next();
         Database database = Database.getDatabase();
-        if(database.checkExistenceinBanks(MN)){
+        AppController appController=new AppController();
+        if(appController.checkExistenceinBanks(MN)){
             int pointer = database.getBankAccountIndex(MN);
             double newBalance = database.getBankAccounts().get(pointer).getBalanceof();
             newBalance += amount;
