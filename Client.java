@@ -37,7 +37,7 @@ public class Client {
                                 System.out.println("press 3 if you want to transfer to a Wallet  account");
                                 System.out.println("press 4 if you want to view your balance");
                                 System.out.println("press 5 if you want to increase your balance");
-                                System.out.println("press 6 if you want to pay bill");
+
                                 System.out.println("press 0 if you want to Sign out");
                                 choice1 = scanner.next();
                                 if (choice1.equals("1")) {
@@ -65,43 +65,17 @@ public class Client {
                                     System.out.println(
                                             "please enter the amount of money that you want to add to your balance:");
                                     double amount = scanner.nextDouble();
-                                    instapayAccount.addtoBalance(amount);}
-
-                                    else if (choice1.equals("6")) {
-                                        System.out.println("Choose the type of bill to pay:");
-                                        System.out.println("1. Gas");
-                                        System.out.println("2. Electricity");
-                                        System.out.println("3. Water");
-                                        int billChoice = scanner.nextInt();
-        
-                                        Bill bill = null;
-                                        switch (billChoice) {
-                                            case 1:
-                                                bill = billFactory.createbill("Gas");
-                                                bill.pay();
-                                                break;
-                                            case 2:
-                                                bill = billFactory.createbill("Electricity");
-                                                 bill.pay();
-                                                break;
-                                            case 3:
-                                                bill = billFactory.createbill("Water");
-                                                 bill.pay();
-                                                break;
-                                            default:
-                                                System.out.println("Invalid bill type");
-                                                break;
-                                        }
-        
-                                    }
-                                         else if (choice1.equals("0")) {
-                                            flag = false;
-                                            System.out.println("You have signed out successfully");
-                                        } else {
-                                            System.out.println("You have entered invalid button");
-                                        }
-                                    }
+                                    instapayAccount.addtoBalance(amount);
                                 }
+
+                                else if (choice1.equals("0")) {
+                                    flag = false;
+                                    System.out.println("You have signed out successfully");
+                                } else {
+                                    System.out.println("You have entered invalid button");
+                                }
+                            }
+                        }
                     } else if (button == 2) {
                         instapayAccount = new AccountWithWallet();
                         System.out.println("please enter your Mobile number associated with the Wallet :");
@@ -169,6 +143,7 @@ public class Client {
                                 System.out.println("press 3 if you want to transfer to a Wallet  account");
                                 System.out.println("press 4 if you want to view your balance");
                                 System.out.println("press 5 if you want to increase your balance");
+                                System.out.println("press 6 if you want to pay bill");
                                 System.out.println("press 0 if you want to Sign out");
                                 choice1 = scanner.next();
                                 if (choice1.equals("1")) {
@@ -196,6 +171,32 @@ public class Client {
                                             "please enter the amount of money that you want to add to your balance:");
                                     double amount = scanner.nextDouble();
                                     instapayAccount.addtoBalance(amount);
+                                } else if (choice1.equals("6")) {
+                                    System.out.println("Choose the type of bill to pay:");
+                                    System.out.println("1. Gas");
+                                    System.out.println("2. Electricity");
+                                    System.out.println("3. Water");
+                                    int billChoice = scanner.nextInt();
+
+                                    Bill bill = null;
+                                    switch (billChoice) {
+                                        case 1:
+                                            bill = billFactory.createbill("Gas");
+                                            bill.pay();
+                                            break;
+                                        case 2:
+                                            bill = billFactory.createbill("Electricity");
+                                            bill.pay();
+                                            break;
+                                        case 3:
+                                            bill = billFactory.createbill("Water");
+                                            bill.pay();
+                                            break;
+                                        default:
+                                            System.out.println("Invalid bill type");
+                                            break;
+                                    }
+
                                 } else if (choice1.equals("0")) {
                                     flag1 = false;
                                     System.out.println("You have signed out successfully");
@@ -222,6 +223,7 @@ public class Client {
                                 System.out.println("press 2 if you want to transfer to a Wallet  account");
                                 System.out.println("press 3 if you want to view your balance");
                                 System.out.println("press 4 if you want to increase your balance");
+                                System.out.println("press 5 if you want to pay bill");
                                 System.out.println("press 0 if you want to Sign out");
                                 String choice3;
                                 choice3 = scanner.next();
@@ -248,13 +250,39 @@ public class Client {
                                     flagSU = false;
                                     System.out.println("You have signed out successfully");
 
+                                } else if (choice3.equals("6")) {
+                                    System.out.println("Choose the type of bill to pay:");
+                                    System.out.println("1. Gas");
+                                    System.out.println("2. Electricity");
+                                    System.out.println("3. Water");
+                                    int billChoice = scanner.nextInt();
+
+                                    Bill bill = null;
+                                    switch (billChoice) {
+                                        case 1:
+                                            bill = billFactory.createbill("Gas");
+                                            bill.pay();
+                                            break;
+                                        case 2:
+                                            bill = billFactory.createbill("Electricity");
+                                            bill.pay();
+                                            break;
+                                        case 3:
+                                            bill = billFactory.createbill("Water");
+                                            bill.pay();
+                                            break;
+                                        default:
+                                            System.out.println("Invalid bill type");
+                                            break;
+                                    }
+
                                 } else {
                                     System.out.println("You have entered invalid button");
                                 }
                             }
                         }
                     }
-                } 
+                }
                 System.out.print("Do you want to exit the program y/n:");
                 String power = scanner.next();
                 if (power.equals("y")) {
