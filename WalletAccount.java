@@ -18,7 +18,8 @@ public class WalletAccount extends ExternalAccount{
         Scanner scanner = new Scanner(System.in);
         String MN = scanner.next();
         Database database = Database.getDatabase();
-        if(database.checkExistenceinProviders(MN)){
+        AppController appController=new AppController();
+        if(appController.checkExistenceinProviders(MN)){
             int pointer = database.getWalletAccountIndex(MN);
             double newBalance = database.getWalletAccounts().get(pointer).getBalanceof();
             newBalance += amount;
