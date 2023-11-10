@@ -33,20 +33,7 @@ public class Database {
     public List<WalletAccount> getOtherAccounts() {
         return WalletAccounts;
     }
-    //to check the account in Inatpayaccounts
-    public boolean checkAccountExistence(String UN){
-        if(SavedAccounts.isEmpty()){
-            return false;
-        }
-        else {
-            for (int i =0;i<SavedAccounts.size();i++){
-                if(SavedAccounts.get(i).getUserName().equals(UN)){
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+    
     public int getAccountIndex(String UN){
         int index = -1;
         for (int i =0;i<SavedAccounts.size();i++){
@@ -73,32 +60,7 @@ public class Database {
         }
         return index;
     }
-    //to check if the account is exist or not in wallet providers accounts
-    public boolean checkExistenceinProviders(String number){
-        if (WalletAccounts.isEmpty()){
-            return false;
-        }
-        else {
-            for (int i=0;i<WalletAccounts.size();i++ ){
-                if(WalletAccounts.get(i).getMobileNum().equals(number))
-                    return true;
-            }
-        }
-        return false;
-    }
-    //to check if the account is exist or not in Bank accounts
-    public boolean checkExistenceinBanks(String number){
-        if ( BankAccounts.isEmpty()){
-            return false;
-        }
-        else {
-            for (int i=0;i<BankAccounts.size();i++ ){
-                if(BankAccounts.get(i).getMobileNum().equals(number))
-                    return true;
-            }
-        }
-        return false;
-    }
+    
 
     public void addAccount(InstapayAccount instapayAccount){
         SavedAccounts.add(instapayAccount);
