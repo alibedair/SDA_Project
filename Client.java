@@ -118,12 +118,15 @@ public class Client {
             } else if (choice == 2) {
                     System.out.println("please enter your UserName :  ");
                     String Uname = scanner.next();
-                    if(database.checkAccountExistence(Uname)) {
+                    AppController appController=new AppController();
+                    if(appController.checkAccountExistence(Uname)) {
                         int index = database.getAccountIndex(Uname);
                         InstapayAccount instapayAccount = database.getSavedAccounts().get(index);
                         System.out.println("please enter your Password :  ");
                         String pass = scanner.next();
-                        if (instapayAccount.signin(Uname, pass)) {
+                        System.out.println("please enter your Mobile Number :  ");
+                        String number = scanner.next();
+                        if (instapayAccount.signin(Uname, pass, number)) {
                             int temp = database.getAccountIndex(Uname);
                             instapayAccount = database.getSavedAccounts().get(temp);
                             String choice1;
@@ -189,4 +192,3 @@ public class Client {
             database.printWalletAccounts();
     }
 }
-    
