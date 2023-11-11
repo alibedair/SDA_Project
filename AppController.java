@@ -61,4 +61,15 @@ public class AppController {
         return false;
     }
 
+    public boolean checkUserNameAvailability(String userName){
+        for (int i =0 ;i<database.getSavedAccounts().size();i++) {
+            if (database.getSavedAccounts().get(i).getUserName().equals(userName)) {
+                System.out.println(userName + " is already taken");
+                System.out.println("please try again !");
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
