@@ -53,7 +53,7 @@ public abstract class InstapayAccount  {
         }
     }
     abstract boolean signup(String mobile_no);
-       boolean signin(String UserName,String Password){
+       boolean signin(String UserName,String Password, String mobile_no){
            Database database = Database.getDatabase();
            for(int i =0;i<database.getSavedAccounts().size();i++){
                if(UserName.equals(database.getSavedAccounts().get(i).getUserName())&& password.equals(database.getSavedAccounts().get(i).getPassword())){
@@ -71,19 +71,21 @@ public abstract class InstapayAccount  {
             return;
         }
         System.out.println("please enter the userName that you want to transfer to :");
-        Scanner scanner = new Scanner(System.in);
-        String UN = scanner.next();
-        Database database = Database.getDatabase();
-        if(database.checkAccountExistence(UN)){
-            int pointer = database.getAccountIndex(UN);
-            double newBalance = database.getSavedAccounts().get(pointer).InquireBalance();
-            newBalance += amount;
-            database.getSavedAccounts().get(pointer).setBalance(newBalance);
-            balance -=amount;
-            System.out.println("Your transference is done Successfully");
-        }
-        else {
-            System.out.println("You enter Invalid UserName");
+        try (Scanner scanner = new Scanner(System.in)) {
+            String UN = scanner.next();
+            Database database = Database.getDatabase();
+            AppController appController=new AppController();
+            if(appController.checkAccountExistence(UN)){
+                int pointer = database.getAccountIndex(UN);
+                double newBalance = database.getSavedAccounts().get(pointer).InquireBalance();
+                newBalance += amount;
+                database.getSavedAccounts().get(pointer).setBalance(newBalance);
+                balance -=amount;
+                System.out.println("Your transference is done Successfully");
+            }
+            else {
+                System.out.println("You enter Invalid UserName");
+            }
         }
     }
 
