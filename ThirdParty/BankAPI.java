@@ -10,6 +10,9 @@ public class BankAPI implements Transference {
     private   String MobileNumber;
     private double balance;
 
+    public BankAPI() {
+    }
+
     public BankAPI(String MobileNumber) {
         this.MobileNumber = MobileNumber;
         balance =0;

@@ -8,6 +8,7 @@ public class AccountWithBank extends InstapayAccount {
         this.password = password;
         balance =0;
     }
+
     public AccountWithBank() {
         balance =0;
     }
