@@ -55,6 +55,8 @@ public class Client {
                             balanceManagement.addtoBalance(instapayAccount,money);
                         }
                         else if(button1.equals("6")){
+                            System.out.println("ali");
+                            System.out.println("d           ");
 
                         }
                         else if (button1.equals("0")) {
