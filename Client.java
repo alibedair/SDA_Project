@@ -1,8 +1,14 @@
 import Account.*;
+import DatabaseManagemnet.AppController;
 import Strategy.Context;
 import DatabaseManagemnet.Database;
 import ThirdParty.BankAPI;
+import WalletFactory.TelecommunicationCompany;
+import WalletFactory.WalletFactory;
+import WalletFactory.WalletProviders;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Client {
@@ -11,6 +17,15 @@ public class Client {
         boolean exit = true;
         Scanner scanner = new Scanner(System.in);
         Database database = Database.getDatabase();
+        AppController appController = new AppController(database);
+        WalletFactory walletFactory = new WalletFactory();
+        WalletProviders walletProviders = walletFactory.createWallet("Electronic payment","01020","Fawry");
+        WalletProviders walletProviders1 = walletFactory.createWallet(" Bank wallet","01023","CIB smart wallet");
+        WalletProviders walletProviders2 = walletFactory.createWallet("Telecommunication company","01028","Vodafone cash");
+        List<WalletProviders> walletProvidersList = new ArrayList<>();
+        walletProvidersList.add(walletProviders);
+        walletProvidersList.add(walletProviders1);
+        walletProvidersList.add(walletProviders2);
         while (exit) {
             System.out.print("please press 1 to SignUp or press 2 to Sign_in :");
             String button = scanner.next();
@@ -44,8 +59,25 @@ public class Client {
                             double amount = scanner.nextDouble();
                             context.ChooseTransference(amount,instapayAccount);
                         }else if(button1.equals("3")){
-
-                        }
+                            boolean flagWallet = false;
+                            System.out.println("please enter the company that you want to transfer with :");
+                            String Company = scanner.next();
+                            for (int i=0;i<walletProvidersList.size();i++){
+                                if(Company.equals(walletProvidersList.get(i).getCompany())){
+                                    flagWallet = true;
+                                    System.out.println("please enter the mobile number associated with wallet that you want to transfer to :");
+                                    String walletNumber = scanner.next();
+                                    if(appController.checkExistenceinProviders(walletNumber)) {
+                                        Context context = new Context(walletProvidersList.get(i));
+                                        System.out.println("please enter the amount of money that you want to transfer:");
+                                        double amount = scanner.nextDouble();
+                                        context.ChooseTransference(amount, instapayAccount);
+                                    }
+                                }
+                            }
+                            if(!flagWallet)
+                                System.out.println("you entered invalid company name");
+                         }
                         else if(button1.equals("4")){
                             System.out.println("Your current Balance = "+instapayAccount.InquireBalance());
                         }
@@ -55,9 +87,6 @@ public class Client {
                             balanceManagement.addtoBalance(instapayAccount,money);
                         }
                         else if(button1.equals("6")){
-                            System.out.println("ali");
-                            System.out.println("d           ");
-
                         }
                         else if (button1.equals("0")) {
                             System.out.println("You have signed out successfully");

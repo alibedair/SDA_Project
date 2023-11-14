@@ -14,6 +14,14 @@ public abstract class WalletProviders implements Transference {
         return MobileNumber;
     }
 
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
     public void setMobileNumber(String mobileNumber) {
         MobileNumber = mobileNumber;
     }
@@ -45,7 +53,7 @@ public abstract class WalletProviders implements Transference {
             double decreaseBalance = instapayAccount.InquireBalance();
             decreaseBalance -=amount;
             instapayAccount.setBalance(decreaseBalance);
-            System.out.println("Your transference is done Successfully with"+company);
+            System.out.println("Your transference is done Successfully with "+company);
         }
         else {
             System.out.println("You enter Invalid Mobile number of wallet account");
