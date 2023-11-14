@@ -1,4 +1,5 @@
 import Account.*;
+import BillFactory.Billfactory;
 import DatabaseManagemnet.AppController;
 import Strategy.Context;
 import DatabaseManagemnet.Database;
@@ -6,6 +7,7 @@ import ThirdParty.BankAPI;
 import WalletFactory.TelecommunicationCompany;
 import WalletFactory.WalletFactory;
 import WalletFactory.WalletProviders;
+import BillFactory.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,18 +21,20 @@ public class Client {
         Database database = Database.getDatabase();
         AppController appController = new AppController(database);
         WalletFactory walletFactory = new WalletFactory();
+        BankAPI test = new BankAPI("010100");
+        database.addBankAccount(test);
         WalletProviders walletProviders = walletFactory.createWallet("Electronic payment","01020","Fawry");
         WalletProviders walletProviders1 = walletFactory.createWallet(" Bank wallet","01023","CIB smart wallet");
         WalletProviders walletProviders2 = walletFactory.createWallet("Telecommunication company","01028","Vodafone cash");
-        List<WalletProviders> walletProvidersList = new ArrayList<>();
-        walletProvidersList.add(walletProviders);
-        walletProvidersList.add(walletProviders1);
-        walletProvidersList.add(walletProviders2);
+        database.addWalletAccount(walletProviders);
+        database.addWalletAccount(walletProviders1);
+        database.addWalletAccount(walletProviders2);
         while (exit) {
             System.out.print("please press 1 to SignUp or press 2 to Sign_in :");
             String button = scanner.next();
             AccountManagement accountManagement = new AccountManagement();
             InstapayAccount instapayAccount;
+            BalanceManagement balanceManagement = new BalanceManagement();
             if (button.equals("1")){
                 System.out.print("press 1 to Signup with bank account or 2 to Signup with Wallet account:");
                 String option = scanner.next();
@@ -38,15 +42,8 @@ public class Client {
                 if(instapayAccount!=null){
                     boolean flag = true;
                     while (flag) {
-                        System.out.println("press 1 if you want to transfer to another Instapay account");
-                        System.out.println("press 2 if you want to transfer to a Bank account");
-                        System.out.println("press 3 if you want to transfer to a Wallet  account");
-                        System.out.println("press 4 if you want to view your balance");
-                        System.out.println("press 5 if you want to increase your balance");
-                        System.out.println("press 6 if you want to pay a bill");
-                        System.out.println("press 0 if you want to Sign out");
+                        instapayAccount.getFeatures();
                         String button1 = scanner.next();
-                        BalanceManagement balanceManagement = new BalanceManagement();
                         if (button1.equals("1")) {
                             Context context = new Context(balanceManagement);
                             System.out.println("please enter the amount of money that you want to transfer:");
@@ -62,13 +59,13 @@ public class Client {
                             boolean flagWallet = false;
                             System.out.println("please enter the company that you want to transfer with :");
                             String Company = scanner.next();
-                            for (int i=0;i<walletProvidersList.size();i++){
-                                if(Company.equals(walletProvidersList.get(i).getCompany())){
+                            for (int i=0;i<database.getWalletAccounts().size();i++){
+                                if(Company.equals(database.getWalletAccounts().get(i).getCompany())){
                                     flagWallet = true;
                                     System.out.println("please enter the mobile number associated with wallet that you want to transfer to :");
                                     String walletNumber = scanner.next();
                                     if(appController.checkExistenceinProviders(walletNumber)) {
-                                        Context context = new Context(walletProvidersList.get(i));
+                                        Context context = new Context(database.getWalletAccounts().get(i));
                                         System.out.println("please enter the amount of money that you want to transfer:");
                                         double amount = scanner.nextDouble();
                                         context.ChooseTransference(amount, instapayAccount);
@@ -87,11 +84,37 @@ public class Client {
                             balanceManagement.addtoBalance(instapayAccount,money);
                         }
                         else if(button1.equals("6")){
+                            System.out.println("please press button 1 if you want to pay a Gas bill");
+                            System.out.println("please press button 2 if you want to pay a Water bill");
+                            System.out.println("please press button 3 if you want to pay a Electricity bill");
+                            String choice = scanner.next();
+                            Billfactory billfactory = new Billfactory();
+                            Bill bill;
+                            if(choice.equals("1")){
+                                 bill = billfactory.createbill("Gas");
+                                bill.print();
+                                bill.pay(instapayAccount);
+                                bill.print();
+                            }
+                            else if(choice.equals("2")){
+                                bill = billfactory.createbill("Water");
+                                bill.print();
+                                bill.pay(instapayAccount);
+                                bill.print();
+                            }
+                            else if(choice.equals("3")){
+                                bill = billfactory.createbill("Electricity");
+                                bill.print();
+                                bill.pay(instapayAccount);
+                                bill.print();
+                            }
                         }
                         else if (button1.equals("0")) {
                             System.out.println("You have signed out successfully");
                             flag = false;
                         }
+                        else
+                            System.out.println("you entered invalid button");
                     }
                 }
             }
@@ -100,18 +123,92 @@ public class Client {
                 String un = scanner.next();
                 System.out.println("please enter your password : ");
                 String pw = scanner.next();
-                instapayAccount = accountManagement.sign_n(un,pw);
+                instapayAccount = accountManagement.sign_in(un,pw);
                 if(instapayAccount!=null){
                     boolean flag = true;
                     while (flag) {
-                        System.out.println("press 1 if you want to transfer to another Instapay account");
-                        System.out.println("press 2 if you want to transfer to a Bank account");
-                        System.out.println("press 3 if you want to transfer to a Wallet  account");
-                        System.out.println("press 4 if you want to view your balance");
-                        System.out.println("press 5 if you want to increase your balance");
-                        System.out.println("press 6 if you want to pay a bill");
-                        System.out.println("press 0 if you want to Sign out");
+                        instapayAccount.getFeatures();
                         String button1 = scanner.next();
+                        if(button1.equals("1")){
+                            Context context= new Context(balanceManagement);
+                            System.out.println("please enter the amount of money that you want to transfer:");
+                            double amount = scanner.nextDouble();
+                            context.ChooseTransference(amount,instapayAccount);
+                        }
+                        else if(button1.equals("2")){
+                            if (instapayAccount.getType().equals("Bank account")){
+                                BankAPI bankAPI = new BankAPI();
+                                Context context = new Context(bankAPI);
+                                System.out.println("please enter the amount of money that you want to transfer:");
+                                double amount = scanner.nextDouble();
+                                context.ChooseTransference(amount,instapayAccount);
+                            }
+                            else
+                                System.out.println("Forbidden request as you are not allowed to do this feature");
+
+                        } else if (button1.equals("3")) {
+                            boolean flagWallet = false;
+                            System.out.println("please enter the company that you want to transfer with :");
+                            String Company = scanner.next();
+                            for (int i=0;i<database.getWalletAccounts().size();i++){
+                                if(Company.equals(database.getWalletAccounts().get(i).getCompany())){
+                                    flagWallet = true;
+                                    System.out.println("please enter the mobile number associated with wallet that you want to transfer to :");
+                                    String walletNumber = scanner.next();
+                                    if(appController.checkExistenceinProviders(walletNumber)) {
+                                        Context context = new Context(database.getWalletAccounts().get(i));
+                                        System.out.println("please enter the amount of money that you want to transfer:");
+                                        double amount = scanner.nextDouble();
+                                        context.ChooseTransference(amount, instapayAccount);
+                                    }
+                                }
+                            }
+                            if(!flagWallet)
+                                System.out.println("you entered invalid company name");
+
+                        } else if (button1.equals("4")) {
+                            System.out.println("Your current Balance = "+instapayAccount.InquireBalance());
+
+                        }
+                        else if(button1.equals("5")){
+                            System.out.println("please enter the amount that you want to add");
+                            double money = scanner.nextDouble();
+                            balanceManagement.addtoBalance(instapayAccount,money);
+
+                        }
+                        else if(button1.equals("6")){
+                            System.out.println("please press button 1 if you want to pay a Gas bill");
+                            System.out.println("please press button 2 if you want to pay a Water bill");
+                            System.out.println("please press button 3 if you want to pay a Electricity bill");
+                            String choice = scanner.next();
+                            Billfactory billfactory = new Billfactory();
+                            Bill bill;
+                            if(choice.equals("1")){
+                                bill = billfactory.createbill("Gas");
+                                bill.print();
+                                bill.pay(instapayAccount);
+                                bill.print();
+                            }
+                            else if(choice.equals("2")){
+                                bill = billfactory.createbill("Water");
+                                bill.print();
+                                bill.pay(instapayAccount);
+                                bill.print();
+                            }
+                            else if(choice.equals("3")){
+                                bill = billfactory.createbill("Electricity");
+                                bill.print();
+                                bill.pay(instapayAccount);
+                                bill.print();
+                            }
+                        }
+                        else if(button1.equals("0")){
+                            System.out.println("You have signed out successfully");
+                            flag = false;
+
+                        }
+                        else
+                            System.out.println("you entered invalid button");
                     }
                 }
             }

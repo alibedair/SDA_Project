@@ -4,7 +4,7 @@ import Account.InstapayAccount;
 
 import java.sql.Date;
 
-abstract class Bill{
+abstract public class Bill{
     protected double amount;
     protected String month;
     protected boolean ispaid;
@@ -12,7 +12,7 @@ abstract class Bill{
     public  double getamount(){
          return amount;
     }
-     void pay(InstapayAccount instapayAccount) {
+     public void pay(InstapayAccount instapayAccount) {
          if(amount>instapayAccount.InquireBalance()){
              System.out.println("You do not have enough funds");
              return;
@@ -24,4 +24,5 @@ abstract class Bill{
              System.out.println("Your bill is paid Successfully");
          }
      }
+     abstract public void print();
 }

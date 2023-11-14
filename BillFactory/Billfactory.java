@@ -9,7 +9,7 @@ public class Billfactory{
         if (type.equals("Gas")){
             return new Gasbill();
         }
-        else if(type.equals("Electricty")){
+        else if(type.equals("Electricity")){
             return new Electrictybill();
         }
         else if (type.equals("Water")){

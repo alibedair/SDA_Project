@@ -7,6 +7,7 @@ public class AccountWithWallet extends InstapayAccount {
         this.userName = userName;
         this.password = password;
         balance =0;
+        type = "Wallet account";
     }
 
 

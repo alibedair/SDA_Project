@@ -7,6 +7,7 @@ public class AccountWithBank extends InstapayAccount {
         this.userName = userName;
         this.password = password;
         balance =0;
+        type ="Bank account";
     }
 
     public AccountWithBank() {
