@@ -8,8 +8,9 @@ private String literConsumed;
     }
 
     public Waterbill() {
-        ispaid=false;
         literConsumed = "5 liters";
+        amount = 70;
+        month = " May";
     }
 
     public void setLiterConsumed(String literConsumed) {
@@ -20,11 +21,6 @@ private String literConsumed;
     public void print() {
         System.out.println("Total due : "+amount);
         System.out.println("month : "+month);
-        System.out.println("Date : "+duedate);
         System.out.println("# of liters consumed : "+literConsumed);
-        if(ispaid==false)
-            System.out.println("The bill is not paid yet");
-        else
-            System.out.println("The bill is paid");
     }
 }

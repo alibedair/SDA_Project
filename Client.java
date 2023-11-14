@@ -4,13 +4,9 @@ import DatabaseManagemnet.AppController;
 import Strategy.Context;
 import DatabaseManagemnet.Database;
 import ThirdParty.BankAPI;
-import WalletFactory.TelecommunicationCompany;
 import WalletFactory.WalletFactory;
 import WalletFactory.WalletProviders;
 import BillFactory.*;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Client {
@@ -57,21 +53,6 @@ public class Client {
                             context.ChooseTransference(amount,instapayAccount);
                         }else if(button1.equals("3")){
                             boolean flagWallet = false;
-                            System.out.println("please enter the company that you want to transfer with :");
-                            String Company = scanner.next();
-                            for (int i=0;i<database.getWalletAccounts().size();i++){
-                                if(Company.equals(database.getWalletAccounts().get(i).getCompany())){
-                                    flagWallet = true;
-                                    System.out.println("please enter the mobile number associated with wallet that you want to transfer to :");
-                                    String walletNumber = scanner.next();
-                                    if(appController.checkExistenceinProviders(walletNumber)) {
-                                        Context context = new Context(database.getWalletAccounts().get(i));
-                                        System.out.println("please enter the amount of money that you want to transfer:");
-                                        double amount = scanner.nextDouble();
-                                        context.ChooseTransference(amount, instapayAccount);
-                                    }
-                                }
-                            }
                             if(!flagWallet)
                                 System.out.println("you entered invalid company name");
                          }
@@ -94,19 +75,16 @@ public class Client {
                                  bill = billfactory.createbill("Gas");
                                 bill.print();
                                 bill.pay(instapayAccount);
-                                bill.print();
                             }
                             else if(choice.equals("2")){
                                 bill = billfactory.createbill("Water");
                                 bill.print();
                                 bill.pay(instapayAccount);
-                                bill.print();
                             }
                             else if(choice.equals("3")){
                                 bill = billfactory.createbill("Electricity");
                                 bill.print();
                                 bill.pay(instapayAccount);
-                                bill.print();
                             }
                         }
                         else if (button1.equals("0")) {
@@ -148,21 +126,6 @@ public class Client {
 
                         } else if (button1.equals("3")) {
                             boolean flagWallet = false;
-                            System.out.println("please enter the company that you want to transfer with :");
-                            String Company = scanner.next();
-                            for (int i=0;i<database.getWalletAccounts().size();i++){
-                                if(Company.equals(database.getWalletAccounts().get(i).getCompany())){
-                                    flagWallet = true;
-                                    System.out.println("please enter the mobile number associated with wallet that you want to transfer to :");
-                                    String walletNumber = scanner.next();
-                                    if(appController.checkExistenceinProviders(walletNumber)) {
-                                        Context context = new Context(database.getWalletAccounts().get(i));
-                                        System.out.println("please enter the amount of money that you want to transfer:");
-                                        double amount = scanner.nextDouble();
-                                        context.ChooseTransference(amount, instapayAccount);
-                                    }
-                                }
-                            }
                             if(!flagWallet)
                                 System.out.println("you entered invalid company name");
 
@@ -187,19 +150,16 @@ public class Client {
                                 bill = billfactory.createbill("Gas");
                                 bill.print();
                                 bill.pay(instapayAccount);
-                                bill.print();
                             }
                             else if(choice.equals("2")){
                                 bill = billfactory.createbill("Water");
                                 bill.print();
                                 bill.pay(instapayAccount);
-                                bill.print();
                             }
                             else if(choice.equals("3")){
                                 bill = billfactory.createbill("Electricity");
                                 bill.print();
                                 bill.pay(instapayAccount);
-                                bill.print();
                             }
                         }
                         else if(button1.equals("0")){
@@ -221,12 +181,6 @@ public class Client {
             }
         }
         System.out.println("We will miss you");
-        System.out.println("Accounts of Banks:");
-        database.printBankAccounts();
-        System.out.println("Accounts of instapay:");
-        database.printSavedAccounts();
-        System.out.println("Accounts of Wallet providers:");
-        database.printWalletAccounts();
     }
 }
 

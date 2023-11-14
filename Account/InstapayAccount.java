@@ -1,6 +1,6 @@
 package Account;
 
-import java.util.Scanner;
+
 public abstract class InstapayAccount  {
     protected String userName;
     protected String password;

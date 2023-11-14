@@ -8,8 +8,9 @@ public class Gasbill extends Bill {
     }
 
     public Gasbill() {
-        ispaid = false;
         reader = "6543";
+        amount = 134;
+        month = "March";
     }
 
     public void setReader(String reader) {
@@ -20,11 +21,6 @@ public class Gasbill extends Bill {
     public void print() {
         System.out.println("Total due : "+amount);
         System.out.println("month : "+month);
-        System.out.println("Date : "+duedate);
         System.out.println("Reading : "+reader);
-        if(ispaid==false)
-            System.out.println("The bill is not paid yet");
-        else
-            System.out.println("The bill is paid");
     }
 }

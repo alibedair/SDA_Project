@@ -1,13 +1,13 @@
 package WalletFactory;
 
 public class WalletFactory {
-    public WalletProviders createWallet(String type,String mn,String t){
+    public WalletProviders createWallet(String type,String mn,String company){
         if(type.equals("Electronic payment"))
-            return new ElectronicPayment(mn,t);
+            return new ElectronicPayment(mn,company);
         else if(type.equals("Telecommunication company"))
-            return new TelecommunicationCompany(mn,t);
+            return new TelecommunicationCompany(mn,company);
         else if(type.equals("Bank wallet"))
-            return new BankWallet(mn,t);
+            return new BankWallet(mn,company);
         else
             return null;
     }
