@@ -1,11 +1,9 @@
 import Account.*;
 import BillFactory.Billfactory;
-import DatabaseManagemnet.AppController;
 import Strategy.Context;
 import DatabaseManagemnet.Database;
 import ThirdParty.BankAPI;
-import WalletFactory.WalletFactory;
-import WalletFactory.WalletProviders;
+import WalletFactory.*;
 import BillFactory.*;
 import java.util.Scanner;
 
@@ -15,12 +13,11 @@ public class Client {
         boolean exit = true;
         Scanner scanner = new Scanner(System.in);
         Database database = Database.getDatabase();
-        AppController appController = new AppController(database);
-        WalletFactory walletFactory = new WalletFactory();
         BankAPI test = new BankAPI("010100");
         database.addBankAccount(test);
-        WalletProviders walletProviders = walletFactory.createWallet("Electronic payment","01020","Fawry");
-        WalletProviders walletProviders1 = walletFactory.createWallet(" Bank wallet","01023","CIB smart wallet");
+        WalletFactory walletFactory = new WalletFactory();
+        WalletProviders walletProviders = walletFactory.createWallet("Electronic payment","010","Fawry");
+        WalletProviders walletProviders1 =walletFactory.createWallet("Bank wallet","012","CIB wallet");
         WalletProviders walletProviders2 = walletFactory.createWallet("Telecommunication company","01028","Vodafone cash");
         database.addWalletAccount(walletProviders);
         database.addWalletAccount(walletProviders1);
@@ -52,9 +49,23 @@ public class Client {
                             double amount = scanner.nextDouble();
                             context.ChooseTransference(amount,instapayAccount);
                         }else if(button1.equals("3")){
-                            boolean flagWallet = false;
-                            if(!flagWallet)
-                                System.out.println("you entered invalid company name");
+                            WalletProviders walletProviders3;
+                            scanner.useDelimiter("\n");
+                            System.out.println("please enter company type to filter our wallet providers :");
+                            String c = scanner.next();
+                            boolean flagW = false;
+                            for(int i=0;i<database.getWalletAccounts().size();i++){
+                                if(database.getWalletAccounts().get(i).getCompany().equals(c)){
+                                    flagW =true;
+                                    walletProviders3 = database.getWalletAccounts().get(i);
+                                    Context context = new Context(walletProviders3);
+                                    System.out.println("please enter the amount you want to transfer :");
+                                    double amount = scanner.nextDouble();
+                                    context.ChooseTransference(amount,instapayAccount);
+                                }
+                            }
+                            if(!flagW)
+                                System.out.println("you entered a company name that not matched to our Wallet providers");
                          }
                         else if(button1.equals("4")){
                             System.out.println("Your current Balance = "+instapayAccount.InquireBalance());
@@ -125,9 +136,23 @@ public class Client {
                                 System.out.println("Forbidden request as you are not allowed to do this feature");
 
                         } else if (button1.equals("3")) {
-                            boolean flagWallet = false;
-                            if(!flagWallet)
-                                System.out.println("you entered invalid company name");
+                            WalletProviders walletProviders3;
+                            scanner.useDelimiter("\n");
+                            System.out.println("please enter company type to filter our wallet providers :");
+                            String c = scanner.next();
+                            boolean flagW = false;
+                            for(int i=0;i<database.getWalletAccounts().size();i++){
+                                if(database.getWalletAccounts().get(i).getCompany().equals(c)){
+                                    flagW =true;
+                                    walletProviders3 = database.getWalletAccounts().get(i);
+                                    Context context = new Context(walletProviders3);
+                                    System.out.println("please enter the amount you want to transfer :");
+                                    double amount = scanner.nextDouble();
+                                    context.ChooseTransference(amount,instapayAccount);
+                                }
+                            }
+                            if(!flagW)
+                                System.out.println("you entered a company name that not matched to our Wallet providers");
 
                         } else if (button1.equals("4")) {
                             System.out.println("Your current Balance = "+instapayAccount.InquireBalance());
@@ -180,6 +205,7 @@ public class Client {
                 exit = false;
             }
         }
+        scanner.close();
         System.out.println("We will miss you");
     }
 }

@@ -27,7 +27,6 @@ public class AppController {
     public boolean isVerified(String enteredOTP, String expectedOTP) {
         return enteredOTP.equals(expectedOTP);
     }
-
     
     public boolean checkExistenceinProviders(String number) {
         if (database.getWalletAccounts().isEmpty()) {
