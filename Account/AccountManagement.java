@@ -35,7 +35,10 @@ public class AccountManagement {
             System.out.println("OTP = "+OTP);
             System.out.print("please enter the OTP :");
             String enteredOTP = scanner.next();
-            appController.isVerified(enteredOTP,OTP);
+            if(!appController.isVerified(enteredOTP,OTP)){
+                System.out.println("OTP is wrong ");
+                return null;
+            }
             if(appController.checkExistenceinProviders(MobileNumber)) {
                 while (retry) {
                     System.out.print("please enter a unique UserName :");
@@ -60,6 +63,10 @@ public class AccountManagement {
             System.out.print("please enter the OTP :");
             String enteredOTP = scanner.next();
             appController.isVerified(enteredOTP,OTP);
+            if(!appController.isVerified(enteredOTP,OTP)){
+                System.out.println("OTP is wrong ");
+                return null;
+            }
             if (appController.checkExistenceinBanks(MobileNumber)) {
                 while (retry){
                 System.out.print("please enter a unique UserName :");
