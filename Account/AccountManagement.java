@@ -33,7 +33,6 @@ public class AccountManagement {
             String MobileNumber = scanner.next();
             if(appController.checkExistenceinProviders(MobileNumber)) {
                 String OTP=appController.sendingOTP(MobileNumber);
-                System.out.println("OTP = "+OTP);
                 System.out.print("please enter the OTP :");
                 String enteredOTP = scanner.next();
                 if(!appController.isVerified(enteredOTP,OTP)){
