@@ -31,15 +31,15 @@ public class AccountManagement {
         if(option.equals("2")){
             System.out.println("please enter your Mobile number associated with any Wallet providers :");
             String MobileNumber = scanner.next();
-            String OTP=appController.sendingOTP(MobileNumber);
-            System.out.println("OTP = "+OTP);
-            System.out.print("please enter the OTP :");
-            String enteredOTP = scanner.next();
-            if(!appController.isVerified(enteredOTP,OTP)){
-                System.out.println("OTP is wrong ");
-                return null;
-            }
             if(appController.checkExistenceinProviders(MobileNumber)) {
+                String OTP=appController.sendingOTP(MobileNumber);
+                System.out.println("OTP = "+OTP);
+                System.out.print("please enter the OTP :");
+                String enteredOTP = scanner.next();
+                if(!appController.isVerified(enteredOTP,OTP)){
+                    System.out.println("OTP is wrong ");
+                    return null;
+                }
                 while (retry) {
                     System.out.print("please enter a unique UserName :");
                     String UN = scanner.next();
@@ -58,15 +58,15 @@ public class AccountManagement {
         else if(option.equals("1")) {
             System.out.println("please enter your Mobile number associated with any Bank :");
             String MobileNumber = scanner.next();
-            String OTP=appController.sendingOTP(MobileNumber);
-            System.out.print("please enter the OTP :");
-            String enteredOTP = scanner.next();
-            appController.isVerified(enteredOTP,OTP);
-            if(!appController.isVerified(enteredOTP,OTP)){
-                System.out.println("OTP is wrong ");
-                return null;
-            }
             if (appController.checkExistenceinBanks(MobileNumber)) {
+                String OTP=appController.sendingOTP(MobileNumber);
+                System.out.print("please enter the OTP :");
+                String enteredOTP = scanner.next();
+                appController.isVerified(enteredOTP,OTP);
+                if(!appController.isVerified(enteredOTP,OTP)){
+                    System.out.println("OTP is wrong ");
+                    return null;
+                }
                 while (retry){
                 System.out.print("please enter a unique UserName :");
                 String UN = scanner.next();

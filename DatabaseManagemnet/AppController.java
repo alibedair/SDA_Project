@@ -33,8 +33,9 @@ public class AppController {
             return false;
         } else {
             for (int i = 0; i < database.getWalletAccounts().size(); i++) {
-                if (database.getWalletAccounts().get(i).getMobileNumber().equals(number))
+                if (database.getWalletAccounts().get(i).getMobileNumber().equals(number)) {
                     return true;
+                }
             }
         }
         return false;
