@@ -59,7 +59,6 @@ public class AccountManagement {
             System.out.println("please enter your Mobile number associated with any Bank :");
             String MobileNumber = scanner.next();
             String OTP=appController.sendingOTP(MobileNumber);
-            System.out.println("OTP = "+OTP);
             System.out.print("please enter the OTP :");
             String enteredOTP = scanner.next();
             appController.isVerified(enteredOTP,OTP);
