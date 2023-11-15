@@ -53,6 +53,7 @@ public class Client {
                             scanner.useDelimiter("\n");
                             System.out.println("please enter company type to filter our wallet providers :");
                             String c = scanner.next();
+                            scanner.nextLine();
                             boolean flagW = false;
                             for(int i=0;i<database.getWalletAccounts().size();i++){
                                 if(database.getWalletAccounts().get(i).getCompany().equals(c)){
@@ -140,6 +141,7 @@ public class Client {
                             scanner.useDelimiter("\n");
                             System.out.println("please enter company type to filter our wallet providers :");
                             String c = scanner.next();
+                            scanner.nextLine();
                             boolean flagW = false;
                             for(int i=0;i<database.getWalletAccounts().size();i++){
                                 if(database.getWalletAccounts().get(i).getCompany().equals(c)){
