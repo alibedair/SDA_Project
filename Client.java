@@ -43,11 +43,16 @@ public class Client {
                             double amount = scanner.nextDouble();
                             context.ChooseTransference(amount, instapayAccount);
                         } else if (button1.equals("2")) {
-                            BankAPI bankAPI = new BankAPI();
-                            Context context = new Context(bankAPI);
-                            System.out.println("please enter the amount of money that you want to transfer:");
-                            double amount = scanner.nextDouble();
-                            context.ChooseTransference(amount,instapayAccount);
+                            if(instapayAccount.getType().equals("Bank account")) {
+                                BankAPI bankAPI = new BankAPI();
+                                Context context = new Context(bankAPI);
+                                System.out.println("please enter the amount of money that you want to transfer:");
+                                double amount = scanner.nextDouble();
+                                context.ChooseTransference(amount, instapayAccount);
+                            }
+                            else {
+                                System.out.println("Forbidden Request");
+                            }
                         }else if(button1.equals("3")){
                             WalletProviders walletProviders3;
                             scanner.useDelimiter("\n");
